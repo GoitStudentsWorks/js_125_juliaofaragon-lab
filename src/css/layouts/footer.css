@@ -32,6 +32,10 @@
 .social-icon {
   fill: #fff;
 }
+.social-icon:hover,
+.social-icon:focus {
+  fill: #080c09;
+}
 
 .footer-nav-list {
   font-family: 'Raleway', sans-serif;
@@ -39,6 +43,11 @@
   font-size: 16px;
   line-height: 1.6;
   color: #fff;
+}
+
+.footer-nav-link:hover,
+.footer-nav-link:focus {
+  color: #080c09;
 }
 
 .footer-copy {
