@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { refs } from '../helpers/refs.js';
 import { lockScroll, unlockScroll } from '../helpers/scroll-lock.js';
 
@@ -65,3 +66,5 @@ export function initHeader() {
     }
   });
 }
+=======
+>>>>>>> main
