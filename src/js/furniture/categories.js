@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { getCategories } from '../api/furniture-api';
 import { refs } from '../helpers/refs';
 
@@ -27,3 +28,5 @@ function renderCategories(array) {
     .join('');
   refs.categoriesList.innerHTML = markup;
 }
+=======
+>>>>>>> 99f7c7a18f0cd9c72f7fde63df797968b0e438b8

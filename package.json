@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --base=/project_group2/",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
