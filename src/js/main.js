@@ -13,7 +13,6 @@
 
 import '../css/styles.css';
 import { initAbout } from './about/about.js';
-import { initSmoothScroll } from './helpers/smooth-scroll.js';
 // Імпортуємо обидві функції з одного файлу header.js
 import { initHeader, initSmoothScroll } from './header/header.js';
 
