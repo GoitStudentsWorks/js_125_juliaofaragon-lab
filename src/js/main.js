@@ -29,7 +29,7 @@ function initApp() {
 const aboutElement = document.querySelector('.js-about'); 
 
 if (aboutElement) {
-  aboutElement.insertAdjacentHTML('beforeend', initAbout());
+  aboutElement.innerHTML = initAbout();
   
 }
 initApp();
