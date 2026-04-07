@@ -1,0 +1,57 @@
+<div class="backdrop modal-backdrop js-order-modal" hidden>
+  <div class="modal order-modal" role="dialog" aria-modal="true" aria-labelledby="order-modal-title">
+    <button
+      class="modal__close order-modal__close"
+      type="button"
+      data-close-order-modal
+      aria-label="Закрити модальне вікно"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <div class="order-modal__content">
+      <div class="order-modal__heading">
+        <h2 class="order-modal__title" id="order-modal-title">Замовити зворотний зв'язок</h2>
+        <p class="order-modal__summary js-order-modal-summary" hidden></p>
+      </div>
+
+      <form class="order-form js-order-form">
+        <label class="order-modal__field">
+          <span class="order-modal__label">Ім'я*</span>
+          <input
+            class="order-modal__input"
+            type="text"
+            name="name"
+            autocomplete="name"
+            required
+          />
+        </label>
+
+        <label class="order-modal__field">
+          <span class="order-modal__label">Телефон*</span>
+          <input
+            class="order-modal__input"
+            type="tel"
+            name="phone"
+            autocomplete="tel"
+            placeholder="+380XXXXXXXXX"
+            required
+          />
+        </label>
+
+        <label class="order-modal__field">
+          <span class="order-modal__label">Коментар</span>
+          <textarea
+            class="order-modal__textarea"
+            name="comment"
+            placeholder="Введіть ваш коментар"
+          ></textarea>
+        </label>
+
+        <p class="order-modal__state js-order-modal-state" hidden></p>
+
+        <button class="button order-modal__submit" type="submit">Надіслати заявку</button>
+      </form>
+    </div>
+  </div>
+</div>
