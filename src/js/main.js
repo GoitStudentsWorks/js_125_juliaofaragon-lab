@@ -7,6 +7,7 @@ import { initFurnitureModal } from './modals/furniture-modal.js';
 import { initOrderModal } from './modals/order-modal.js';
 
 import { initAbout } from './about/about.js';
+import { initFeedback } from './feedback/feedback.js';
 // Імпортуємо обидві функції з одного файлу header.js
 import { initHeader, initSmoothScroll } from './header/header.js';
 
@@ -17,6 +18,7 @@ async function initApp() {
     await initProducts();
     initFurnitureModal();
     initOrderModal();
+    await initFeedback();
   }
 
   if (typeof initSmoothScroll === 'function') {

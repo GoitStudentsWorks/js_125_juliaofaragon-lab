@@ -1,34 +1,61 @@
-const buttonPrev = document.querySelector('.feedback-prev');
-const buttonNext = document.querySelector('.feedback-next');
-const feedbackList  = document.querySelector('.feedback-list')
+import fullStarIcon from '../../img/feedbacks/fullstar.svg';
+import halfStarIcon from '../../img/feedbacks/halfstar.svg';
 
-function renderStars(rate) {
-    const fullStars = Math.floor(rate);
-    const hasHalfStar = rate % 1 !== 0;
-    let starsHTML = '';
-    for (let i = 0; i < fullStars; i++) {
-        starsHTML += '<svg class="star-icon" width="20" height="20"><use href="../img/feedbacks/fullstar.svg#star"></use></svg>';
-    }
+function normalizeRating(rate) {
+  const value = Number(rate);
 
-    if (hasHalfStar) {
-        starsHTML += '<svg class="star-icon" width="20" height="20"><use href="../img/feedbacks/halfstar.svg#star"></use></svg>';
-    }
-    for (let i = fullStars + (hasHalfStar ? 1 : 0); i < 5; i++) {
-        starsHTML += '<svg class="star-icon empty" width="20" height="20"><use href="../img/feedbacks/fullstar.svg#star"></use></svg>';
-    }
-    
-    return starsHTML;
+  if (!Number.isFinite(value)) {
+    return 0;
+  }
+
+  if (value >= 3.3 && value <= 3.7) {
+    return 3.5;
+  }
+
+  if (value >= 3.8 && value <= 4.2) {
+    return 4;
+  }
+
+  return Math.round(value * 2) / 2;
 }
 
-export function createFeedbackList(feedbacks) {
-    const markup = feedbacks.map(feedback => 
-        `
-        <li class="swiper-slide">
-            <div class="feedback-stars">${renderStars(feedback.rate)}</div>
-            <p class="feedback-descr">"${feedback.descr}"</p>
-            <p class="feedback-name">${feedback.name}</p>
+function renderStars(rate) {
+  const normalizedRate = normalizeRating(rate);
+  const fullStars = Math.floor(normalizedRate);
+  const hasHalfStar = normalizedRate % 1 !== 0;
+  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+  const fullMarkup = Array.from(
+    { length: fullStars },
+    () =>
+      `<li class="feedback__star-item"><img class="feedback__star-icon" src="${fullStarIcon}" alt="" width="20" height="20" /></li>`
+  ).join('');
+
+  const halfMarkup = hasHalfStar
+    ? `<li class="feedback__star-item"><img class="feedback__star-icon" src="${halfStarIcon}" alt="" width="20" height="20" /></li>`
+    : '';
+
+  const emptyMarkup = Array.from(
+    { length: emptyStars },
+    () =>
+      `<li class="feedback__star-item feedback__star-item--empty"><img class="feedback__star-icon" src="${fullStarIcon}" alt="" width="20" height="20" /></li>`
+  ).join('');
+
+  return `${fullMarkup}${halfMarkup}${emptyMarkup}`;
+}
+
+export function createFeedbackMarkup(feedbacks) {
+  return feedbacks
+    .map(
+      (feedback) => `
+        <li class="feedback__item swiper-slide">
+          <ul class="feedback__stars" aria-label="Оцінка ${normalizeRating(feedback.rate)} з 5">
+            ${renderStars(feedback.rate)}
+          </ul>
+          <p class="feedback__text">${feedback.descr}</p>
+          <p class="feedback__name">${feedback.name}</p>
         </li>
-        `
-    );
-    feedbackList.insertAdjacentHTML('beforeend', markup.join(''));
+      `
+    )
+    .join('');
 }

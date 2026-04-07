@@ -1,43 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script type="module" src="../js/feedback/feedback.js"></script>
-    <link rel="stylesheet" href="../../node_modules/css-star-rating/css/star-rating.css">
-    <link rel="stylesheet" href="../css/base/common.css">
-    <link rel="stylesheet" href="../css/base/container.css">
-    <link rel="stylesheet" href="../css/base/variables.css">
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/layouts/feedback.css">
-    
+<section class="feedback section" id="feedback">
+  <div class="container feedback__container">
+    <div class="feedback__head">
+      <h2 class="feedback__title">Відгуки клієнтів</h2>
+      <p class="feedback__subtitle">
+        Дізнайтеся, що кажуть наші задоволені клієнти про наші меблі
+      </p>
+    </div>
 
-    
-    
-</head>
-<body>
-    <section class="feedback">
-    <h2>Відгуки клієнтів</h2>
-    <p>Дізнайтеся, що кажуть наші задоволені клієнти про нашу меблі.</p>
-    
-    <div class="swiper mySwiper">
-        <ul class="swiper-wrapper feedback-list"></ul>
-        <div class="feedback-pagination swiper-pagination"></div>
+    <p class="feedback__loader visually-hidden js-feedback-loader">Завантажуємо відгуки...</p>
+    <p class="feedback__state visually-hidden js-feedback-state"></p>
+
+    <div class="feedback__slider swiper js-feedback-swiper">
+      <ul class="feedback__list swiper-wrapper js-feedback-list"></ul>
+      <div class="feedback__pagination swiper-pagination js-feedback-pagination"></div>
     </div>
-    
-    <div class="feedback-buttons">
-        <button type="button" class="feedback-prev swiper-button-prev">
-            <svg class="arrow" width="24" height="24">
-                <use href="../img/feedbacks/left-arrow.svg"></use>
-            </svg>
-        </button>
-        <button type="button" class="feedback-next swiper-button-next">
-            <svg class="arrow" width="24" height="24">
-                <use href="../img/feedbacks/right-arrow.svg"></use>
-            </svg>
-        </button>
+
+    <div class="feedback__controls">
+      <button
+        class="feedback__button feedback__button--prev js-feedback-prev"
+        type="button"
+        aria-label="Попередній відгук"
+      >
+        <img src="./img/feedbacks/left-arrow.svg" alt="" width="24" height="24" />
+      </button>
+      <button
+        class="feedback__button feedback__button--next js-feedback-next"
+        type="button"
+        aria-label="Наступний відгук"
+      >
+        <img src="./img/feedbacks/right-arrow.svg" alt="" width="24" height="24" />
+      </button>
     </div>
+  </div>
 </section>
-</body>
-</html>
