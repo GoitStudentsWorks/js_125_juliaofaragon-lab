@@ -239,6 +239,10 @@
   line-height: 1.6;
 }
 
+.furniture-modal__loader {
+  color: #8b5e34;
+}
+
 .furniture-modal__state[data-state='loading'] {
   color: #8b5e34;
 }

@@ -1,10 +1,11 @@
 import iziToast from 'izitoast';
+import Raty from 'raty-js';
 import Swiper from 'swiper';
 import { Navigation } from 'swiper/modules';
-import 'css-star-rating/css/star-rating.css';
-import 'swiper/css';
-import 'swiper/css/navigation';
 
+import emptyStarIcon from '../../img/feedbacks/emptystar.svg';
+import fullStarIcon from '../../img/feedbacks/fullstar.svg';
+import halfStarIcon from '../../img/feedbacks/halfstar.svg';
 import { getFeedbacks } from '../api/feedback-api.js';
 import { createFeedbackMarkup } from './feedback-functions.js';
 
@@ -87,6 +88,27 @@ function syncPagination(activeIndex = 0) {
   });
 }
 
+function initRatings() {
+  document.querySelectorAll('.js-feedback-rating').forEach((element) => {
+    const score = Number(element.dataset.feedbackRate ?? 0);
+    const rating = new Raty(element, {
+      half: true,
+      halfShow: true,
+      number: 5,
+      path: '',
+      readOnly: true,
+      score,
+      space: false,
+      starHalf: halfStarIcon,
+      starOff: emptyStarIcon,
+      starOn: fullStarIcon,
+      starType: 'img',
+    });
+
+    rating.init();
+  });
+}
+
 function initSlider() {
   const { nextButton, pagination, prevButton, slider } = getElements();
 
@@ -102,6 +124,16 @@ function initSlider() {
     modules: [Navigation],
     slidesPerView: 1,
     spaceBetween: 16,
+    breakpoints: {
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 24,
+      },
+      1440: {
+        slidesPerView: 3,
+        spaceBetween: 24,
+      },
+    },
     navigation: {
       nextEl: nextButton,
       prevEl: prevButton,
@@ -131,6 +163,7 @@ export async function initFeedback() {
     const feedbacks = await getFeedbacks();
 
     list.innerHTML = createFeedbackMarkup(feedbacks);
+    initRatings();
     renderPagination(feedbacks.length);
     initSlider();
   } catch (error) {

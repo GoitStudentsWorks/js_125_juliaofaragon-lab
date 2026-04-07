@@ -54,6 +54,8 @@ function getModalElements() {
     closeButton: refs.furnitureModal.querySelector('[data-close-furniture-modal]'),
     colors: refs.furnitureModal.querySelector('.js-furniture-modal-colors'),
     description: refs.furnitureModal.querySelector('.js-furniture-modal-description'),
+    loader: refs.furnitureModal.querySelector('.js-furniture-modal-loader'),
+    loaderText: refs.furnitureModal.querySelector('.js-furniture-modal-loader-text'),
     mainImage: refs.furnitureModal.querySelector('.js-furniture-modal-main-image'),
     price: refs.furnitureModal.querySelector('.js-furniture-modal-price'),
     ratingValue: refs.furnitureModal.querySelector('.js-furniture-modal-rating-value'),
@@ -64,6 +66,24 @@ function getModalElements() {
     title: refs.furnitureModal.querySelector('#furniture-modal-title'),
     window: refs.furnitureModal.querySelector('.furniture-modal'),
   };
+}
+
+function renderLoader(isVisible, message = 'Завантажуємо інформацію про товар...') {
+  const { loader, loaderText, window } = getModalElements();
+
+  if (!loader) {
+    return;
+  }
+
+  loader.hidden = !isVisible;
+
+  if (loaderText) {
+    loaderText.textContent = message;
+  }
+
+  if (window) {
+    window.setAttribute('aria-busy', String(isVisible));
+  }
 }
 
 function normalizeText(value, fallback = '') {
@@ -413,6 +433,7 @@ function renderFurnitureInfo() {
   }
 
   renderColors();
+  renderLoader(false);
   renderStateMessage();
 }
 
@@ -434,6 +455,8 @@ function resetFurnitureModal() {
   state.item = null;
   state.activeColorIndex = 0;
   state.activeImageIndex = 0;
+
+  renderLoader(false);
 
   if (title) {
     title.textContent = 'Завантаження...';
@@ -524,7 +547,8 @@ export function closeFurnitureModal(options = {}) {
 
 async function fillFurnitureModal(id) {
   resetFurnitureModal();
-  renderStateMessage('Завантажуємо інформацію про товар...', 'loading');
+  renderLoader(true);
+  renderStateMessage();
 
   try {
     const item = await getFurnitureById(id);
@@ -532,6 +556,7 @@ async function fillFurnitureModal(id) {
     state.item = normalizeFurnitureItem(item);
     renderFurnitureInfo();
   } catch (error) {
+    renderLoader(false);
     renderStateMessage(
       error instanceof Error ? error.message : 'Не вдалося завантажити дані про товар.',
       'error'

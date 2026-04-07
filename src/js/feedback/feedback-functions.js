@@ -1,5 +1,3 @@
-import ratingSprite from 'css-star-rating/images/star-rating.icons.svg';
-
 export function normalizeRating(rate) {
   const value = Number(rate);
 
@@ -17,44 +15,16 @@ export function normalizeRating(rate) {
 
   return Math.round(value * 2) / 2;
 }
-
-function getRatingClasses(rate) {
-  const wholeValue = Math.floor(rate);
-  const hasHalf = rate % 1 !== 0;
-
-  return hasHalf ? `value-${wholeValue} half` : `value-${wholeValue}`;
-}
-
-function createStarMarkup() {
-  return `
-    <div class="star">
-      <svg class="star-empty" viewBox="0 0 34 32" aria-hidden="true">
-        <use href="${ratingSprite}#star-empty"></use>
-      </svg>
-      <svg class="star-half" viewBox="0 0 34 32" aria-hidden="true">
-        <use href="${ratingSprite}#star-half"></use>
-      </svg>
-      <svg class="star-filled" viewBox="0 0 34 32" aria-hidden="true">
-        <use href="${ratingSprite}#star-filled"></use>
-      </svg>
-    </div>
-  `;
-}
-
 function renderRating(rate) {
   const normalizedRate = normalizeRating(rate);
 
   return `
     <div
-      class="feedback__rating rating ${getRatingClasses(normalizedRate)} star-svg label-hidden direction-ltr immediately"
+      class="feedback__rating js-feedback-rating"
+      data-feedback-rate="${normalizedRate}"
       role="img"
       aria-label="Оцінка ${normalizedRate} з 5"
-    >
-      <div class="label-value">${normalizedRate}</div>
-      <div class="star-container">
-        ${Array.from({ length: 5 }, createStarMarkup).join('')}
-      </div>
-    </div>
+    ></div>
   `;
 }
 

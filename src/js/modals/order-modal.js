@@ -1,5 +1,4 @@
 import iziToast from 'izitoast';
-import 'izitoast/dist/css/iziToast.min.css';
 
 import { createOrder } from '../api/orders-api.js';
 import { lockScroll, unlockScroll } from '../helpers/scroll-lock.js';
@@ -23,6 +22,8 @@ function getElements() {
 
   return {
     form: modal.querySelector('.js-order-form'),
+    loader: modal.querySelector('.js-order-modal-loader'),
+    loaderText: modal.querySelector('.js-order-modal-loader-text'),
     modal,
     nameInput: modal.querySelector('input[name="name"]'),
     phoneInput: modal.querySelector('input[name="phone"]'),
@@ -31,6 +32,24 @@ function getElements() {
     submitButton: modal.querySelector('.order-modal__submit'),
     summary: modal.querySelector('.js-order-modal-summary'),
   };
+}
+
+function renderLoader(isVisible, message = 'Надсилаємо заявку...') {
+  const { loader, loaderText, form } = getElements();
+
+  if (!loader) {
+    return;
+  }
+
+  loader.hidden = !isVisible;
+
+  if (loaderText) {
+    loaderText.textContent = message;
+  }
+
+  if (form) {
+    form.setAttribute('aria-busy', String(isVisible));
+  }
 }
 
 function renderStateMessage(message = '', type = 'info') {
@@ -79,7 +98,7 @@ function setSubmitState(isBusy) {
   }
 
   submitButton.disabled = isBusy;
-  submitButton.textContent = isBusy ? 'Надсилаємо...' : 'Надіслати заявку';
+  submitButton.textContent = 'Надіслати заявку';
 }
 
 function normalizePhone(value) {
@@ -126,6 +145,7 @@ export function openOrderModal(options = {}) {
   state.modelName = options.modelName ?? '';
 
   renderSummary();
+  renderLoader(false);
   renderStateMessage();
   setSubmitState(false);
 
@@ -154,6 +174,7 @@ export function closeOrderModal(options = {}) {
 
   modal.hidden = true;
   form.reset();
+  renderLoader(false);
   renderStateMessage();
   setSubmitState(false);
   unlockScroll();
@@ -193,7 +214,8 @@ async function handleOrderSubmit(event) {
   }
 
   setSubmitState(true);
-  renderStateMessage('Надсилаємо заявку...', 'loading');
+  renderLoader(true);
+  renderStateMessage();
 
   try {
     const order = await createOrder(payload);
@@ -214,6 +236,7 @@ async function handleOrderSubmit(event) {
       position: 'bottomRight',
     });
   } finally {
+    renderLoader(false);
     setSubmitState(false);
   }
 }

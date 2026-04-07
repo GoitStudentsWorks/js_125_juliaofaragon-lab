@@ -11,7 +11,8 @@
 }
 
 .footer-logo-svg {
-  fill: #fff;
+  color: #fff;
+  display: block;
 }
 .footer-nav-list {
   margin-top: 24px;
@@ -38,13 +39,13 @@
 }
 
 .social-icon {
-  fill: #fff;
-  transition: fill 250ms ease;
+  color: #fff;
+  transition: color 250ms ease;
 }
 
 .socials-link:hover .social-icon,
 .socials-link:focus-visible .social-icon {
-  fill: #080c09;
+  color: #080c09;
 }
 
 .socials-link:active {

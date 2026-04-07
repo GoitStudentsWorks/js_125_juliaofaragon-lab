@@ -6,7 +6,6 @@ import { initProducts } from './furniture/furniture-list.js';
 import { initFurnitureModal } from './modals/furniture-modal.js';
 import { initOrderModal } from './modals/order-modal.js';
 
-import { initAbout } from './about/about.js';
 import { initFeedback } from './feedback/feedback.js';
 // Імпортуємо обидві функції з одного файлу header.js
 import { initHeader, initSmoothScroll } from './header/header.js';
@@ -24,11 +23,5 @@ async function initApp() {
   if (typeof initSmoothScroll === 'function') {
     initSmoothScroll();
   }
-}
-
-const aboutElement = document.querySelector('.js-about');
-
-if (aboutElement) {
-  aboutElement.innerHTML = initAbout();
 }
 void initApp();

@@ -22,7 +22,7 @@
 
 .feedback__subtitle {
   color: #080c09;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 1.6;
 }
 
@@ -36,49 +36,45 @@
 .feedback__slider {
   width: 100%;
   min-width: 0;
+  overflow: hidden;
 }
 
 .feedback__list {
-  margin-bottom: 24px;
+  display: flex;
+  box-sizing: border-box;
+}
+
+.feedback__item.swiper-slide {
+  flex-shrink: 0;
+  width: 100%;
 }
 
 .feedback__item {
   display: grid;
-  gap: 24px;
+  gap: 18px;
   height: auto;
-  min-height: 260px;
-  padding: 24px;
-  border-radius: 8px;
-  background: #ffffff;
-  box-shadow: 0 8px 24px rgba(8, 12, 9, 0.08);
+  min-height: 100%;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
-.feedback__rating.rating {
-  justify-content: flex-start;
-  margin-bottom: 0;
+.feedback__rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 16px;
 }
 
-.feedback__rating .label-value {
+.feedback__rating img {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.feedback__rating input {
   display: none;
-}
-
-.feedback__rating .star-container {
-  gap: 4px;
-  margin: 0;
-}
-
-.feedback__rating .star {
-  width: 20px;
-  height: 20px;
-}
-
-.feedback__rating .star svg.star-empty {
-  fill: rgba(8, 12, 9, 0.16) !important;
-}
-
-.feedback__rating .star svg.star-half,
-.feedback__rating .star svg.star-filled {
-  fill: #080c09 !important;
 }
 
 .feedback__text {
@@ -89,23 +85,28 @@
 
 .feedback__name {
   color: #080c09;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.6;
 }
 
+.feedback__footer {
+  display: grid;
+  gap: 20px;
+}
+
 .feedback__controls {
   display: flex;
-  justify-content: center;
-  gap: 16px;
+  justify-content: flex-start;
+  gap: 12px;
 }
 
 .feedback__button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 32px;
+  height: 32px;
   border: 1px solid rgba(8, 12, 9, 0.15);
   border-radius: 50%;
   background: #ffffff;
@@ -137,14 +138,14 @@
 
 .feedback__pagination {
   display: flex;
-  justify-content: center;
-  gap: 8px;
+  justify-content: flex-start;
+  gap: 6px;
   flex-wrap: wrap;
 }
 
 .feedback__pagination-button {
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
   padding: 0;
   border: none;
   border-radius: 50%;
@@ -167,9 +168,21 @@
     padding: 64px 0;
   }
 
+  .feedback__container {
+    gap: 40px;
+  }
+
   .feedback__item {
-    min-height: 280px;
-    padding: 32px;
+    gap: 20px;
+  }
+
+  .feedback__footer {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+
+  .feedback__controls {
+    justify-content: flex-end;
   }
 }
 
@@ -180,5 +193,9 @@
 
   .feedback__title {
     font-size: 48px;
+  }
+
+  .feedback__subtitle {
+    max-width: 420px;
   }
 }

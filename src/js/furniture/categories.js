@@ -30,6 +30,18 @@ function getCategoryBackground(categoryId = 'all') {
   return categoryImages[categoryId] ?? categoryImages.all ?? { regular: '', retina: '' };
 }
 
+function getCategoryBackgroundUrl(images) {
+  if (!images) {
+    return '';
+  }
+
+  if (window.devicePixelRatio > 1) {
+    return images.retina || images.regular || '';
+  }
+
+  return images.regular || images.retina || '';
+}
+
 function showErrorToast(message) {
   iziToast.error({
     message,
@@ -64,16 +76,14 @@ export function renderCategories(array) {
   categoryList.querySelectorAll('.item-category').forEach((categoryItem) => {
     const categoryId =
       categoryItem.querySelector('[data-category-button]')?.dataset.categoryId ?? 'all';
-    const { regular, retina } = getCategoryBackground(categoryId);
-    const primaryImage = regular || retina;
-    const retinaImage = retina || regular;
+    const backgroundUrl = getCategoryBackgroundUrl(getCategoryBackground(categoryId));
 
-    if (!primaryImage) {
+    if (!backgroundUrl) {
       categoryItem.style.backgroundImage = '';
       return;
     }
 
-    categoryItem.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), image-set(url("${primaryImage}") 1x, url("${retinaImage}") 2x)`;
+    categoryItem.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("${backgroundUrl}")`;
   });
 }
 

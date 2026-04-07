@@ -11,7 +11,7 @@
 
     <div class="order-modal__content">
       <div class="order-modal__heading">
-        <h2 class="order-modal__title" id="order-modal-title">Замовити зворотний зв'язок</h2>
+        <h2 class="order-modal__title" id="order-modal-title">Замовити зворотний зв’язок</h2>
         <p class="order-modal__summary js-order-modal-summary" hidden></p>
       </div>
 
@@ -25,6 +25,7 @@
             autocomplete="name"
             minlength="2"
             maxlength="64"
+            placeholder="Дмитро"
             required
           />
         </label>
@@ -40,7 +41,7 @@
             pattern="[0-9]{12}"
             minlength="12"
             maxlength="12"
-            placeholder="380961234568"
+            placeholder="38 099 123 22 11"
             title="Введіть 12 цифр без пробілів і символу +"
             required
           />
@@ -56,6 +57,11 @@
             placeholder="Введіть ваш коментар"
           ></textarea>
         </label>
+
+        <div class="modal-loader order-modal__loader js-order-modal-loader" aria-live="polite" hidden>
+          <span class="modal-loader__spinner" aria-hidden="true"></span>
+          <span class="js-order-modal-loader-text">Надсилаємо заявку...</span>
+        </div>
 
         <p class="order-modal__state js-order-modal-state" hidden></p>
 

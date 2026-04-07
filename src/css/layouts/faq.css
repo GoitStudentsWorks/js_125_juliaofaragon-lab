@@ -56,12 +56,8 @@
     width: 32px;
     height: 32px;
     align-self: center;
-    fill: #080c09;
-    stroke-width: 1px;
-    stroke: #000;
-    fill: #000;
+    color: #080c09;
     display: block;
-    pointer-events: none;
 }
 
 .ac {

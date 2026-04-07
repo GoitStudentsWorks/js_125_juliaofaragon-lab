@@ -19,7 +19,7 @@
         <div class="furniture-modal__main-image-wrap">
           <img
             class="furniture-modal__main-image js-furniture-modal-main-image"
-            src=""
+            src="./img/placeholder/furniture-placeholder.svg"
             alt="Фото товару"
           />
         </div>
@@ -36,7 +36,7 @@
         <div class="furniture-modal__summary">
           <p class="furniture-modal__price js-furniture-modal-price">Ціна уточнюється</p>
 
-          <div class="furniture-modal__rating" aria-label="Рейтинг товару">
+          <div class="furniture-modal__rating" role="img" aria-label="Рейтинг товару">
             <div class="furniture-modal__stars js-furniture-modal-stars"></div>
             <p class="furniture-modal__rating-value js-furniture-modal-rating-value" hidden></p>
           </div>
@@ -56,6 +56,11 @@
           </p>
 
           <p class="furniture-modal__sizes js-furniture-modal-sizes">Розміри уточнюються</p>
+        </div>
+
+        <div class="modal-loader furniture-modal__loader js-furniture-modal-loader" aria-live="polite" hidden>
+          <span class="modal-loader__spinner" aria-hidden="true"></span>
+          <span class="js-furniture-modal-loader-text">Завантажуємо інформацію про товар...</span>
         </div>
 
         <p class="furniture-modal__state js-furniture-modal-state" hidden></p>
