@@ -22,6 +22,10 @@
     border-top: 1px solid rgba(8, 12, 9, 0.15) !important;
 }
 
+.faq-wraper {
+    margin: 0;
+}
+
 .faq__btn {
     display: flex;
     flex-direction: row;
@@ -30,7 +34,7 @@
     position: relative;
     text-align: start;
     width: 100%;
-    padding: 20px 0;
+    padding: 16px 0;
     font-family: "Raleway", sans-serif;
     font-weight: 700;
     font-size: 16px;
@@ -46,8 +50,8 @@
 .faq__btn.ac-trigger::after {
     content: '';
     display: block;
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     margin-left: 24px;
     flex-shrink: 0;
     border-right: 1.5px solid currentColor;
@@ -83,11 +87,22 @@
 
 .faq__answer {
     overflow: hidden;
+    visibility: hidden;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.5;
     color: #5d5d5d;
-    padding-bottom: 24px;
+    transition-property: height, visibility;
+    transition-timing-function: ease;
+}
+
+.faq__answer .answer-text {
+    padding: 0 0 16px;
+    color: inherit;
+}
+
+.ac.is-active .faq__answer {
+    visibility: visible;
 }
 
 .is-active .faq__btn.ac-trigger::after {
@@ -97,7 +112,7 @@
 /* Styles for Tablet devices */
 @media only screen and (min-width: 768px) {
     .faq__btn {
-        padding: 21.5px 0;
+        padding: 18px 0;
     }
 }
 
