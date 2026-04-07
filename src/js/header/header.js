@@ -49,6 +49,11 @@ export function initHeader() {
   refs.mobileMenu.addEventListener('click', (event) => {
     if (event.target.closest('[data-link-mobile-menu]')) {
       closeMobileMenu();
+      return;
+    }
+
+    if (event.target === refs.mobileMenu) {
+      closeMobileMenu();
     }
   });
 

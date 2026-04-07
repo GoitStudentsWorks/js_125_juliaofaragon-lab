@@ -1,7 +1,6 @@
-import fullStarIcon from '../../img/feedbacks/fullstar.svg';
-import halfStarIcon from '../../img/feedbacks/halfstar.svg';
+import ratingSprite from 'css-star-rating/images/star-rating.icons.svg';
 
-function normalizeRating(rate) {
+export function normalizeRating(rate) {
   const value = Number(rate);
 
   if (!Number.isFinite(value)) {
@@ -19,29 +18,44 @@ function normalizeRating(rate) {
   return Math.round(value * 2) / 2;
 }
 
-function renderStars(rate) {
+function getRatingClasses(rate) {
+  const wholeValue = Math.floor(rate);
+  const hasHalf = rate % 1 !== 0;
+
+  return hasHalf ? `value-${wholeValue} half` : `value-${wholeValue}`;
+}
+
+function createStarMarkup() {
+  return `
+    <div class="star">
+      <svg class="star-empty" viewBox="0 0 34 32" aria-hidden="true">
+        <use href="${ratingSprite}#star-empty"></use>
+      </svg>
+      <svg class="star-half" viewBox="0 0 34 32" aria-hidden="true">
+        <use href="${ratingSprite}#star-half"></use>
+      </svg>
+      <svg class="star-filled" viewBox="0 0 34 32" aria-hidden="true">
+        <use href="${ratingSprite}#star-filled"></use>
+      </svg>
+    </div>
+  `;
+}
+
+function renderRating(rate) {
   const normalizedRate = normalizeRating(rate);
-  const fullStars = Math.floor(normalizedRate);
-  const hasHalfStar = normalizedRate % 1 !== 0;
-  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
-  const fullMarkup = Array.from(
-    { length: fullStars },
-    () =>
-      `<li class="feedback__star-item"><img class="feedback__star-icon" src="${fullStarIcon}" alt="" width="20" height="20" /></li>`
-  ).join('');
-
-  const halfMarkup = hasHalfStar
-    ? `<li class="feedback__star-item"><img class="feedback__star-icon" src="${halfStarIcon}" alt="" width="20" height="20" /></li>`
-    : '';
-
-  const emptyMarkup = Array.from(
-    { length: emptyStars },
-    () =>
-      `<li class="feedback__star-item feedback__star-item--empty"><img class="feedback__star-icon" src="${fullStarIcon}" alt="" width="20" height="20" /></li>`
-  ).join('');
-
-  return `${fullMarkup}${halfMarkup}${emptyMarkup}`;
+  return `
+    <div
+      class="feedback__rating rating ${getRatingClasses(normalizedRate)} star-svg label-hidden direction-ltr immediately"
+      role="img"
+      aria-label="Оцінка ${normalizedRate} з 5"
+    >
+      <div class="label-value">${normalizedRate}</div>
+      <div class="star-container">
+        ${Array.from({ length: 5 }, createStarMarkup).join('')}
+      </div>
+    </div>
+  `;
 }
 
 export function createFeedbackMarkup(feedbacks) {
@@ -49,9 +63,7 @@ export function createFeedbackMarkup(feedbacks) {
     .map(
       (feedback) => `
         <li class="feedback__item swiper-slide">
-          <ul class="feedback__stars" aria-label="Оцінка ${normalizeRating(feedback.rate)} з 5">
-            ${renderStars(feedback.rate)}
-          </ul>
+          ${renderRating(feedback.rate)}
           <p class="feedback__text">${feedback.descr}</p>
           <p class="feedback__name">${feedback.name}</p>
         </li>

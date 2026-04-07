@@ -53,18 +53,32 @@
   box-shadow: 0 8px 24px rgba(8, 12, 9, 0.08);
 }
 
-.feedback__stars {
-  display: flex;
-  align-items: center;
+.feedback__rating.rating {
+  justify-content: flex-start;
+  margin-bottom: 0;
+}
+
+.feedback__rating .label-value {
+  display: none;
+}
+
+.feedback__rating .star-container {
   gap: 4px;
+  margin: 0;
 }
 
-.feedback__star-item--empty {
-  opacity: 0.25;
+.feedback__rating .star {
+  width: 20px;
+  height: 20px;
 }
 
-.feedback__star-icon {
-  display: block;
+.feedback__rating .star svg.star-empty {
+  fill: rgba(8, 12, 9, 0.16) !important;
+}
+
+.feedback__rating .star svg.star-half,
+.feedback__rating .star svg.star-filled {
+  fill: #080c09 !important;
 }
 
 .feedback__text {
@@ -121,28 +135,30 @@
   display: none;
 }
 
-.feedback .swiper-pagination {
-  position: static;
+.feedback__pagination {
   display: flex;
   justify-content: center;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
-.feedback .swiper-pagination-bullet {
+.feedback__pagination-button {
   width: 10px;
   height: 10px;
-  margin: 0 !important;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
   background: rgba(8, 12, 9, 0.2);
-  opacity: 1;
+  cursor: pointer;
   transition: background-color var(--transition-main);
 }
 
-.feedback .swiper-pagination-bullet:hover,
-.feedback .swiper-pagination-bullet:focus-visible {
+.feedback__pagination-button:hover,
+.feedback__pagination-button:focus-visible {
   background: rgba(107, 6, 9, 0.6);
 }
 
-.feedback .swiper-pagination-bullet-active {
+.feedback__pagination-button.is-active {
   background: #6b0609;
 }
 
@@ -153,6 +169,7 @@
 
   .feedback__item {
     min-height: 280px;
+    padding: 32px;
   }
 }
 

@@ -10,19 +10,24 @@ const categoryImageModules = import.meta.glob('../../img/categories/*.{jpg,jpeg,
   import: 'default',
 });
 
-const categoryImages = Object.fromEntries(
-  Object.entries(categoryImageModules).map(([path, url]) => {
+const categoryImages = Object.entries(categoryImageModules).reduce((accumulator, [path, url]) => {
     const fileName = path.split('/').pop() ?? '';
-    const baseName = fileName.replace(/\.[^.]+$/, '');
+    const isRetina = /@2x\.[^.]+$/i.test(fileName);
+    const baseName = fileName.replace(/@2x(?=\.[^.]+$)/i, '').replace(/\.[^.]+$/, '');
+    const existingImage = accumulator[baseName] ?? {};
 
-    return [baseName, url];
-  })
-);
+    accumulator[baseName] = {
+      regular: isRetina ? existingImage.regular : url,
+      retina: isRetina ? url : existingImage.retina,
+    };
+
+    return accumulator;
+  }, {});
 
 export let currentCategory = 'all';
 
 function getCategoryBackground(categoryId = 'all') {
-  return categoryImages[categoryId] ?? categoryImages.all ?? '';
+  return categoryImages[categoryId] ?? categoryImages.all ?? { regular: '', retina: '' };
 }
 
 function showErrorToast(message) {
@@ -59,9 +64,16 @@ export function renderCategories(array) {
   categoryList.querySelectorAll('.item-category').forEach((categoryItem) => {
     const categoryId =
       categoryItem.querySelector('[data-category-button]')?.dataset.categoryId ?? 'all';
-    const imageUrl = getCategoryBackground(categoryId);
+    const { regular, retina } = getCategoryBackground(categoryId);
+    const primaryImage = regular || retina;
+    const retinaImage = retina || regular;
 
-    categoryItem.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("${imageUrl}")`;
+    if (!primaryImage) {
+      categoryItem.style.backgroundImage = '';
+      return;
+    }
+
+    categoryItem.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), image-set(url("${primaryImage}") 1x, url("${retinaImage}") 2x)`;
   });
 }
 

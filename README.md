@@ -18,11 +18,12 @@ Mebleriia is a responsive landing page for a furniture store. The project helps 
 ## Features
 
 - fixed header with anchor navigation
-- hero section with responsive background images
+- hero section with responsive and retina-ready background images
 - furniture list loaded from backend
 - category filtering and pagination by 8 items
 - furniture details modal with gallery, colors, rating, description, and dimensions
 - order modal with POST request to the backend
+- feedback section with Swiper slider and backend data
 - FAQ accordion
 - footer with anchor navigation and social links
 
@@ -100,5 +101,5 @@ The project uses the Furniture Store API for:
 
 ## Notes
 
-- Feedback section integration is still pending.
-- Static content images use responsive sources where available.
+- The layout is optimized for breakpoints `375px`, `768px`, and `1440px`.
+- Backend requests are handled through a shared HTTP helper with user-facing toast messages.

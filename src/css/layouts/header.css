@@ -88,14 +88,14 @@ body {
 
 .header__nav {
   position: fixed;
-  top: 72px;
+  top: 0;
   right: 0;
   z-index: 1050;
   display: none;
   flex-direction: column;
   width: 100%;
-  height: calc(100vh - 72px);
-  padding: 32px 20px;
+  height: 100vh;
+  padding: 104px 20px 32px;
   align-items: center;
   background: #ffffff;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -177,7 +177,9 @@ body {
   }
 
   .header__nav {
+    top: 72px;
     width: 320px;
+    height: calc(100vh - 72px);
     padding: 24px 32px;
     align-items: flex-end;
   }

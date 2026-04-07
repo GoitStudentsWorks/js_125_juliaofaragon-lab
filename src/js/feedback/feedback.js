@@ -1,9 +1,9 @@
 import iziToast from 'izitoast';
 import Swiper from 'swiper';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
+import 'css-star-rating/css/star-rating.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 
 import { getFeedbacks } from '../api/feedback-api.js';
 import { createFeedbackMarkup } from './feedback-functions.js';
@@ -50,6 +50,43 @@ function renderState(message = '') {
   state.classList.remove('visually-hidden');
 }
 
+function renderPagination(totalItems) {
+  const { pagination } = getElements();
+
+  if (!pagination) {
+    return;
+  }
+
+  pagination.innerHTML = Array.from(
+    { length: totalItems },
+    (_, index) => `
+      <li class="feedback__pagination-item">
+        <button
+          class="feedback__pagination-button"
+          type="button"
+          data-feedback-pagination="${index}"
+          aria-label="Перейти до відгуку ${index + 1}"
+        ></button>
+      </li>
+    `
+  ).join('');
+}
+
+function syncPagination(activeIndex = 0) {
+  const { pagination } = getElements();
+
+  if (!pagination) {
+    return;
+  }
+
+  pagination.querySelectorAll('[data-feedback-pagination]').forEach((button, index) => {
+    const isActive = index === activeIndex;
+
+    button.classList.toggle('is-active', isActive);
+    button.setAttribute('aria-current', isActive ? 'true' : 'false');
+  });
+}
+
 function initSlider() {
   const { nextButton, pagination, prevButton, slider } = getElements();
 
@@ -62,25 +99,19 @@ function initSlider() {
   }
 
   feedbackSwiper = new Swiper(slider, {
-    modules: [Navigation, Pagination],
+    modules: [Navigation],
     slidesPerView: 1,
     spaceBetween: 16,
     navigation: {
       nextEl: nextButton,
       prevEl: prevButton,
     },
-    pagination: {
-      clickable: true,
-      el: pagination,
-    },
-    breakpoints: {
-      768: {
-        slidesPerView: 2,
-        spaceBetween: 24,
+    on: {
+      init(swiper) {
+        syncPagination(swiper.activeIndex);
       },
-      1440: {
-        slidesPerView: 3,
-        spaceBetween: 24,
+      slideChange(swiper) {
+        syncPagination(swiper.activeIndex);
       },
     },
   });
@@ -100,6 +131,7 @@ export async function initFeedback() {
     const feedbacks = await getFeedbacks();
 
     list.innerHTML = createFeedbackMarkup(feedbacks);
+    renderPagination(feedbacks.length);
     initSlider();
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Не вдалося завантажити відгуки.';
@@ -111,5 +143,21 @@ export async function initFeedback() {
     });
   } finally {
     hideLoader();
+  }
+
+  const { pagination } = getElements();
+
+  if (pagination && !pagination.dataset.listenerAttached) {
+    pagination.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-feedback-pagination]');
+
+      if (!button || !feedbackSwiper) {
+        return;
+      }
+
+      feedbackSwiper.slideTo(Number(button.dataset.feedbackPagination));
+    });
+
+    pagination.dataset.listenerAttached = 'true';
   }
 }
