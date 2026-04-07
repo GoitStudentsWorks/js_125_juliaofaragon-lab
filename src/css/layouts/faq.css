@@ -36,6 +36,7 @@
     font-size: 16px;
     line-height: 1.6;
     color: #080c09;
+    transition: color var(--transition-main);
 }
 
 .faq__btn.ac-trigger {
@@ -59,6 +60,13 @@
     cursor: pointer;
 }
 
+.faq__btn.ac-trigger:hover,
+.faq__btn.ac-trigger:focus,
+.faq__btn.ac-trigger:focus-visible,
+.is-active > .faq-wraper .faq__btn.ac-trigger {
+    color: #080c09;
+}
+
 .faq__btn-text {
     text-align: left;
 }
@@ -78,7 +86,7 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 1.6;
-    color: #080c09;
+    color: #5d5d5d;
     padding-bottom: 24px;
 }
 
