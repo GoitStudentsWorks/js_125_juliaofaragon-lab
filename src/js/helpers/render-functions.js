@@ -34,9 +34,9 @@ export function createFeedbackSlide({ name = '', descr = '', rate = '' } = {}) {
   return `
     <div class="swiper-slide">
       <article class="feedback-card">
+        <div class="feedback-card__rating" data-rating="${rate}"></div>
+        <p class="feedback-card__text">"${descr}"</p>
         <h3 class="feedback-card__name">${name}</h3>
-        <p class="feedback-card__rate">${rate}</p>
-        <p class="feedback-card__text">${descr}</p>
       </article>
     </div>
   `;

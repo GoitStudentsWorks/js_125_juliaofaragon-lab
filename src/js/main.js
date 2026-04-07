@@ -1,4 +1,5 @@
 import 'accordion-js/dist/accordion.min.css';
+import 'raty-js/src/raty.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';

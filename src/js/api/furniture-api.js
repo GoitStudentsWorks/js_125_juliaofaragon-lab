@@ -36,5 +36,5 @@ export function getFurnitureById(id) {
 }
 
 export function getFeedbacks() {
-  return request('/feedbacks');
+  return request('/feedbacks', { limit: 10, page: 1 });
 }

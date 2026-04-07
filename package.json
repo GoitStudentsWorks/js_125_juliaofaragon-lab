@@ -25,6 +25,7 @@
     "accordion-js": "^3.4.1",
     "izitoast": "^1.4.0",
     "modern-normalize": "^3.0.1",
+    "raty-js": "^4.3.0",
     "swiper": "^12.1.3"
   }
 }
