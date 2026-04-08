@@ -41,7 +41,12 @@ function hideLoader() {
 
 function setFooterVisible(isVisible) {
   const { footer } = getElements();
-  if (footer) footer.hidden = !isVisible;
+
+  if (!footer) {
+    return;
+  }
+
+  footer.hidden = !isVisible;
 }
 
 function renderState(message = '') {
