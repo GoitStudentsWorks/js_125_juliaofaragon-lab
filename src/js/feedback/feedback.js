@@ -3,7 +3,6 @@ import Raty from 'raty-js';
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 
-// Обов'язково імпортуємо стилі, якщо вони не підключені в CSS
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -110,8 +109,8 @@ function initSlider() {
       el: pagination,
       type: 'bullets',
       clickable: true,
-      dynamicBullets: true, // Вмикає анімацію масштабування
-      dynamicMainBullets: 1, // Робить акцент на одній точці для кращого руху
+      dynamicBullets: true,
+      dynamicMainBullets: 1,
     },
   });
 }
@@ -121,7 +120,6 @@ export async function initFeedback() {
 
   if (!section || !list) return;
 
-  // Очищуємо стару розмітку пагінації, щоб Swiper міг створити свою
   if (pagination) pagination.innerHTML = '';
 
   setFooterVisible(false);

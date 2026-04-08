@@ -50,7 +50,7 @@
 }
 
 .feedback__item {
-  display: grid;
+  display: grid !important;
   gap: 18px;
   height: auto;
   min-height: 100%;
@@ -137,8 +137,8 @@
 }
 
 .feedback__pagination {
-  display: block; /* Swiper сам керує позиціонуванням */
-  width: 88px;    /* Ширина видимого віконця для точок */
+  display: block;
+  width: auto;
   overflow: hidden;
   margin: 0;
   white-space: nowrap;
