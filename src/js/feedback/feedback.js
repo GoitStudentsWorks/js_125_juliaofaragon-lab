@@ -1,99 +1,155 @@
-import Swiper from 'swiper';
-import { A11y, Keyboard, Navigation, Pagination } from 'swiper/modules';
-import { refs } from '../helpers/refs.js';
-import { createFeedbackSlide } from '../helpers/render-functions.js';
+import iziToast from 'izitoast';
 import Raty from 'raty-js';
+import Swiper from 'swiper';
+import { Navigation, Pagination } from 'swiper/modules';
 
-const BASE_URL = 'https://furniture-store-v2.b.goit.study/api/feedbacks?limit=10&page=1';
+// Обов'язково імпортуємо стилі, якщо вони не підключені в CSS
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
-async function fetchFeedbacks() {
-  const response = await fetch(BASE_URL);
-  if (!response.ok) throw new Error(`Feedback request failed: ${response.status}`);
-  return response.json();
-}
+import emptyStarIcon from '../../img/feedbacks/emptystar.svg';
+import fullStarIcon from '../../img/feedbacks/fullstar.svg';
+import halfStarIcon from '../../img/feedbacks/halfstar.svg';
+import { getFeedbacks } from '../api/feedback-api.js';
+import { createFeedbackMarkup } from './feedback-functions.js';
 
 let feedbackSwiper = null;
 
-function normalizeRating(rate) {
-  if (rate >= 3.3 && rate <= 3.7) return 3.5;
-  if (rate >= 3.8 && rate <= 4.2) return 4;
-  return Math.round(rate * 2) / 2;
+function getElements() {
+  return {
+    footer: document.querySelector('.feedback__footer'),
+    list: document.querySelector('.js-feedback-list'),
+    loader: document.querySelector('.js-feedback-loader'),
+    nextButton: document.querySelector('.js-feedback-next'),
+    pagination: document.querySelector('.js-feedback-pagination'),
+    prevButton: document.querySelector('.js-feedback-prev'),
+    section: document.querySelector('.feedback'),
+    slider: document.querySelector('.js-feedback-swiper'),
+    state: document.querySelector('.js-feedback-state'),
+  };
 }
 
-function renderFeedbackSlides(feedbacks) {
-  const swiperWrapper = refs.feedbackSlider?.querySelector('.swiper-wrapper');
-  if (!swiperWrapper) return;
-
-  swiperWrapper.innerHTML = feedbacks
-    .map((feedback) =>
-      createFeedbackSlide({
-        name: feedback.name,
-        descr: feedback.descr,
-        rate: normalizeRating(feedback.rate),
-      })
-    )
-    .join('');
-
-  initRatyRatings();
+function showLoader() {
+  const { loader } = getElements();
+  loader?.classList.remove('visually-hidden');
 }
 
-function initRatyRatings() {
-  document.querySelectorAll('.feedback-card__rating').forEach((element) => {
-    const rating = parseFloat(element.dataset.rating) || 0;
-    new Raty(element, {
-      score: rating,
-      readOnly: true,
-      hints: null,
-      noRatedMsg: '',
-      cancelButton: false,
-      target: false,
-      precision: true,
-      space: true,
-      single: false,
+function hideLoader() {
+  const { loader } = getElements();
+  loader?.classList.add('visually-hidden');
+}
+
+function setFooterVisible(isVisible) {
+  const { footer } = getElements();
+  if (footer) footer.hidden = !isVisible;
+}
+
+function renderState(message = '') {
+  const { state } = getElements();
+  if (!state) return;
+
+  if (!message) {
+    state.textContent = '';
+    state.classList.add('visually-hidden');
+    return;
+  }
+
+  state.textContent = message;
+  state.classList.remove('visually-hidden');
+}
+
+function initRatings() {
+  document.querySelectorAll('.js-feedback-rating').forEach((element) => {
+    const score = Number(element.dataset.feedbackRate ?? 0);
+    const rating = new Raty(element, {
+      half: true,
+      halfShow: true,
       number: 5,
-      starType: 'i',
-    }).init();
+      path: '',
+      readOnly: true,
+      score,
+      space: false,
+      starHalf: halfStarIcon,
+      starOff: emptyStarIcon,
+      starOn: fullStarIcon,
+      starType: 'img',
+    });
+    rating.init();
   });
 }
 
-function initSwiper() {
-  if (!refs.feedbackSlider?.querySelector('.swiper-slide')) return null;
+function initSlider() {
+  const { nextButton, pagination, prevButton, slider } = getElements();
 
-  return new Swiper(refs.feedbackSlider, {
-    modules: [Navigation, Keyboard, A11y, Pagination],
+  if (!slider || !nextButton || !prevButton || !pagination) return;
+
+  if (feedbackSwiper) {
+    feedbackSwiper.destroy(true, true);
+  }
+
+  feedbackSwiper = new Swiper(slider, {
+    modules: [Navigation, Pagination],
     slidesPerView: 1,
-    spaceBetween: 24,
-    loop: true,
-    keyboard: { enabled: true },
+    spaceBetween: 16,
+    breakpoints: {
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 24,
+      },
+      1440: {
+        slidesPerView: 3,
+        spaceBetween: 24,
+      },
+    },
     navigation: {
-      nextEl: refs.feedbackNextButton,
-      prevEl: refs.feedbackPrevButton,
+      nextEl: nextButton,
+      prevEl: prevButton,
     },
     pagination: {
-      el: refs.feedbackPagination,
+      el: pagination,
+      type: 'bullets',
       clickable: true,
-      dynamicBullets: true,
-    },
-    breakpoints: {
-      768: { slidesPerView: 2 },
-      1440: { slidesPerView: 3 },
+      dynamicBullets: true, // Вмикає анімацію масштабування
+      dynamicMainBullets: 1, // Робить акцент на одній точці для кращого руху
     },
   });
 }
 
 export async function initFeedback() {
+  const { list, section, pagination } = getElements();
+
+  if (!section || !list) return;
+
+  // Очищуємо стару розмітку пагінації, щоб Swiper міг створити свою
+  if (pagination) pagination.innerHTML = '';
+
+  setFooterVisible(false);
+  showLoader();
+  renderState();
+
   try {
-    const { feedbacks = [] } = await fetchFeedbacks();
-    if (!feedbacks.length) {
-      console.warn('No feedbacks available');
-      return null;
+    const feedbacks = await getFeedbacks();
+
+    if (!feedbacks || feedbacks.length === 0) {
+      setFooterVisible(false);
+      renderState('Відгуків поки немає.');
+      return;
     }
 
-    renderFeedbackSlides(feedbacks.slice(0, 10));
-    feedbackSwiper = initSwiper();
-    return feedbackSwiper;
+    list.innerHTML = createFeedbackMarkup(feedbacks);
+    initRatings();
+    initSlider();
+    setFooterVisible(true);
   } catch (error) {
-    console.error('Error initializing feedback carousel:', error);
-    return null;
+    setFooterVisible(false);
+    const message = error instanceof Error ? error.message : 'Не вдалося завантажити відгуки.';
+    renderState(message);
+    iziToast.error({
+      message,
+      position: 'bottomRight',
+    });
+  } finally {
+    hideLoader();
   }
 }

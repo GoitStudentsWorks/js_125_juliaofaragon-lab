@@ -63,7 +63,6 @@ main {
   overflow: hidden;
   border: 0;
   clip: rect(0 0 0 0);
-  clip-path: inset(100%);
   white-space: nowrap;
 }
 
@@ -103,6 +102,31 @@ main {
   height: 40px;
   border: 1px solid var(--color-border);
   border-radius: 50%;
+}
+
+.modal-loader {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.modal-loader__spinner {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: modal-loader-spin 0.8s linear infinite;
+}
+
+@keyframes modal-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (min-width: 768px) {

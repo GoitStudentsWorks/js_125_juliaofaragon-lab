@@ -1,38 +1,27 @@
-import 'accordion-js/dist/accordion.min.css';
-import 'raty-js/src/raty.css';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'izitoast/dist/css/iziToast.min.css';
+import './faq/faq.js';
 import '../css/styles.css';
-import { initAbout } from './about/about.js';
-import { initFaq } from './faq/faq.js';
-import { initFeedback } from './feedback/feedback.js';
+
 import { initCategories } from './furniture/categories.js';
-import { initFurnitureList } from './furniture/furniture-list.js';
-import { initLoadMoreButton } from './furniture/load-more.js';
-import { initHeader } from './header/header.js';
-import { initSmoothScroll } from './helpers/smooth-scroll.js';
-import { initHero } from './hero/hero.js';
+import { initProducts } from './furniture/furniture-list.js';
 import { initFurnitureModal } from './modals/furniture-modal.js';
 import { initOrderModal } from './modals/order-modal.js';
 
-function initApp() {
-  initHeader();
-  initHero();
-  initFurnitureList();
-  initCategories();
-  initLoadMoreButton();
-  initAbout();
-  initFaq();
-  initFeedback();
-  initFurnitureModal();
-  initOrderModal();
-  initSmoothScroll();
-}
+import { initFeedback } from './feedback/feedback.js';
+// Імпортуємо обидві функції з одного файлу header.js
+import { initHeader, initSmoothScroll } from './header/header.js';
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initApp);
-} else {
-  initApp();
+async function initApp() {
+  if (typeof initHeader === 'function') {
+    initHeader();
+    await initCategories();
+    await initProducts();
+    initFurnitureModal();
+    initOrderModal();
+    await initFeedback();
+  }
+
+  if (typeof initSmoothScroll === 'function') {
+    initSmoothScroll();
+  }
 }
+void initApp();

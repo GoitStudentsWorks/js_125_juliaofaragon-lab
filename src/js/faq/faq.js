@@ -1,19 +1,14 @@
-import Accordion from 'accordion-js';
-import { refs } from '../helpers/refs.js';
+import Accordion from "accordion-js";
 
-let faqAccordion = null;
+document.addEventListener('DOMContentLoaded', () => {
 
-export function initFaq() {
-  const hasItems = refs.faqAccordion?.querySelector('.ac');
+    new Accordion(".accordion-container", {
+        showMultiple: false,
+        duration: 500,
+        triggerClass: "ac-trigger",
+        elementClass: "ac",
+        panelClass: "ac-panel",
+        activeClass: 'is-active',
+    });
 
-  if (!refs.faqAccordion || !hasItems) {
-    return faqAccordion;
-  }
-
-  faqAccordion = new Accordion(refs.faqAccordion, {
-    duration: 300,
-    showMultiple: false,
-  });
-
-  return faqAccordion;
-}
+});

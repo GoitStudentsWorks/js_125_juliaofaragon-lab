@@ -1,40 +1,32 @@
-const BASE_URL = import.meta.env.VITE_API_BASE_URL?.trim() ?? '';
+import { request } from './http.js';
+import iziToast from 'izitoast';
 
-async function request(path, params = {}) {
-  if (!BASE_URL) {
-    throw new Error('Set VITE_API_BASE_URL in your local .env file.');
+export async function getFurnitureById(id) {
+  try {
+    return await request(`/furnitures/${id}`);
+  } catch (error) {
+    iziToast.error({
+      message: error instanceof Error ? error.message : 'Не вдалося завантажити дані про товар.',
+      position: 'bottomRight',
+    });
+
+    throw error;
   }
-
-  const searchParams = new URLSearchParams();
-
-  Object.entries(params).forEach(([key, value]) => {
-    if (value !== '' && value !== null && value !== undefined) {
-      searchParams.append(key, String(value));
-    }
-  });
-
-  const query = searchParams.toString();
-  const response = await fetch(`${BASE_URL}${path}${query ? `?${query}` : ''}`);
-
-  if (!response.ok) {
-    throw new Error(`Request failed with status ${response.status}.`);
-  }
-
-  return response.json();
 }
 
 export function getCategories() {
   return request('/categories');
 }
 
-export function getFurniture({ page = 1, limit = 8, category = '' } = {}) {
-  return request('/furniture', { page, limit, category });
-}
+export function getProductsByCategory(category, page) {
+  const params = {
+    limit: 8,
+    page,
+  };
 
-export function getFurnitureById(id) {
-  return request(`/furniture/${id}`);
-}
+  if (category !== 'all') {
+    params.category = category;
+  }
 
-export function getFeedbacks() {
-  return request('/feedbacks', { limit: 10, page: 1 });
+  return request('/furnitures', { params });
 }

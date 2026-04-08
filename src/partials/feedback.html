@@ -1,36 +1,36 @@
 <section class="feedback section" id="feedback">
   <div class="container feedback__container">
-    <div class="section-head">
-      <h2 class="section-title">Відгуки клієнтів</h2>
-      <p class="section-text">Дізнайтеся, що кажуть наші задоволені клієнти про наші меблі.</p>
+    <div class="feedback__head">
+      <h2 class="feedback__title">Відгуки клієнтів</h2>
+      <p class="feedback__subtitle">
+        Дізнайтеся, що кажуть наші задоволені клієнти про наші меблі
+      </p>
     </div>
 
-    <div class="feedback__slider swiper js-feedback-slider">
-      <div class="swiper-wrapper">
-        <!-- Feedback slides go here -->
-      </div>
+    <p class="feedback__loader visually-hidden js-feedback-loader">Завантажуємо відгуки...</p>
+    <p class="feedback__state visually-hidden js-feedback-state"></p>
+
+    <div class="feedback__slider swiper js-feedback-swiper">
+      <ul class="feedback__list swiper-wrapper js-feedback-list"></ul>
     </div>
 
-    <div class="feedback__controls">
-      <div class="feedback__pagination js-feedback-pagination"></div>
-      <div class="feedback__buttons">
+    <div class="feedback__footer">
+      <ul class="feedback__pagination js-feedback-pagination" aria-label="Пагінація відгуків"></ul>
+
+      <div class="feedback__controls">
         <button
-          class="feedback__button js-feedback-prev"
+          class="feedback__button feedback__button--prev js-feedback-prev"
           type="button"
-          aria-label="Попередній слайд"
+          aria-label="Попередній відгук"
         >
-          <svg class="feedback__button-icon" width="24" height="24">
-            <use href="/src/img/feedbacks/feedback-sprite.svg#icon-left-arrow-alt"></use>
-          </svg>
+          <img src="./img/feedbacks/left-arrow.svg" alt="" width="16" height="16" />
         </button>
         <button
-          class="feedback__button js-feedback-next"
+          class="feedback__button feedback__button--next js-feedback-next"
           type="button"
-          aria-label="Наступний слайд"
+          aria-label="Наступний відгук"
         >
-          <svg class="feedback__button-icon" width="24" height="24">
-            <use href="/src/img/feedbacks/feedback-sprite.svg#icon-right-arrow-alt"></use>
-          </svg>
+          <img src="./img/feedbacks/right-arrow.svg" alt="" width="16" height="16" />
         </button>
       </div>
     </div>
