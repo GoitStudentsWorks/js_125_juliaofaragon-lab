@@ -15,3 +15,6 @@
 @import url('./layouts/order-modal.css');
 @import url('./layouts/footer.css');
 @import url('./about.css');
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';

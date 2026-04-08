@@ -1,7 +1,11 @@
 import iziToast from 'izitoast';
 import Raty from 'raty-js';
 import Swiper from 'swiper';
-import { Navigation } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 import emptyStarIcon from '../../img/feedbacks/emptystar.svg';
 import fullStarIcon from '../../img/feedbacks/fullstar.svg';
@@ -47,10 +51,7 @@ function setFooterVisible(isVisible) {
 
 function renderState(message = '') {
   const { state } = getElements();
-
-  if (!state) {
-    return;
-  }
+  if (!state) return;
 
   if (!message) {
     state.textContent = '';
@@ -60,43 +61,6 @@ function renderState(message = '') {
 
   state.textContent = message;
   state.classList.remove('visually-hidden');
-}
-
-function renderPagination(totalItems) {
-  const { pagination } = getElements();
-
-  if (!pagination) {
-    return;
-  }
-
-  pagination.innerHTML = Array.from(
-    { length: totalItems },
-    (_, index) => `
-      <li class="feedback__pagination-item">
-        <button
-          class="feedback__pagination-button"
-          type="button"
-          data-feedback-pagination="${index}"
-          aria-label="Перейти до відгуку ${index + 1}"
-        ></button>
-      </li>
-    `
-  ).join('');
-}
-
-function syncPagination(activeIndex = 0) {
-  const { pagination } = getElements();
-
-  if (!pagination) {
-    return;
-  }
-
-  pagination.querySelectorAll('[data-feedback-pagination]').forEach((button, index) => {
-    const isActive = index === activeIndex;
-
-    button.classList.toggle('is-active', isActive);
-    button.setAttribute('aria-current', isActive ? 'true' : 'false');
-  });
 }
 
 function initRatings() {
@@ -115,7 +79,6 @@ function initRatings() {
       starOn: fullStarIcon,
       starType: 'img',
     });
-
     rating.init();
   });
 }
@@ -123,16 +86,14 @@ function initRatings() {
 function initSlider() {
   const { nextButton, pagination, prevButton, slider } = getElements();
 
-  if (!slider || !nextButton || !prevButton || !pagination) {
-    return;
-  }
+  if (!slider || !nextButton || !prevButton || !pagination) return;
 
   if (feedbackSwiper) {
     feedbackSwiper.destroy(true, true);
   }
 
   feedbackSwiper = new Swiper(slider, {
-    modules: [Navigation],
+    modules: [Navigation, Pagination],
     slidesPerView: 1,
     spaceBetween: 16,
     breakpoints: {
@@ -149,23 +110,22 @@ function initSlider() {
       nextEl: nextButton,
       prevEl: prevButton,
     },
-    on: {
-      init(swiper) {
-        syncPagination(swiper.activeIndex);
-      },
-      slideChange(swiper) {
-        syncPagination(swiper.activeIndex);
-      },
+    pagination: {
+      el: pagination,
+      type: 'bullets',
+      clickable: true,
+      dynamicBullets: true,
+      dynamicMainBullets: 1,
     },
   });
 }
 
 export async function initFeedback() {
-  const { list, section } = getElements();
+  const { list, section, pagination } = getElements();
 
-  if (!section || !list) {
-    return;
-  }
+  if (!section || !list) return;
+
+  if (pagination) pagination.innerHTML = '';
 
   setFooterVisible(false);
   showLoader();
@@ -174,15 +134,19 @@ export async function initFeedback() {
   try {
     const feedbacks = await getFeedbacks();
 
+    if (!feedbacks || feedbacks.length === 0) {
+      setFooterVisible(false);
+      renderState('Відгуків поки немає.');
+      return;
+    }
+
     list.innerHTML = createFeedbackMarkup(feedbacks);
     initRatings();
-    renderPagination(feedbacks.length);
     initSlider();
-    setFooterVisible(feedbacks.length > 0);
+    setFooterVisible(true);
   } catch (error) {
     setFooterVisible(false);
     const message = error instanceof Error ? error.message : 'Не вдалося завантажити відгуки.';
-
     renderState(message);
     iziToast.error({
       message,
@@ -190,21 +154,5 @@ export async function initFeedback() {
     });
   } finally {
     hideLoader();
-  }
-
-  const { pagination } = getElements();
-
-  if (pagination && !pagination.dataset.listenerAttached) {
-    pagination.addEventListener('click', (event) => {
-      const button = event.target.closest('[data-feedback-pagination]');
-
-      if (!button || !feedbackSwiper) {
-        return;
-      }
-
-      feedbackSwiper.slideTo(Number(button.dataset.feedbackPagination));
-    });
-
-    pagination.dataset.listenerAttached = 'true';
   }
 }

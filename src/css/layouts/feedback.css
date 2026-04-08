@@ -50,7 +50,7 @@
 }
 
 .feedback__item {
-  display: grid;
+  display: grid !important;
   gap: 18px;
   height: auto;
   min-height: 100%;
@@ -137,30 +137,29 @@
 }
 
 .feedback__pagination {
-  display: flex;
-  justify-content: flex-start;
-  gap: 6px;
-  flex-wrap: wrap;
+  display: block;
+  width: auto;
+  overflow: hidden;
+  margin: 0;
+  white-space: nowrap;
 }
 
 .feedback__pagination-button {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   padding: 0;
   border: none;
-  border-radius: 50%;
   background: rgba(8, 12, 9, 0.2);
   cursor: pointer;
   transition: background-color var(--transition-main);
 }
 
-.feedback__pagination-button:hover,
-.feedback__pagination-button:focus-visible {
-  background: rgba(107, 6, 9, 0.6);
-}
-
-.feedback__pagination-button.is-active {
-  background: #6b0609;
+.feedback__pagination .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  background: rgb(8, 12, 9);
 }
 
 @media (min-width: 768px) {
