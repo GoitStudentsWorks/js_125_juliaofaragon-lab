@@ -30,6 +30,8 @@ function getElements() {
     commentInput: modal.querySelector('textarea[name="comment"]'),
     stateText: modal.querySelector('.js-order-modal-state'),
     submitButton: modal.querySelector('.order-modal__submit'),
+    success: modal.querySelector('.js-order-modal-success'),
+    successText: modal.querySelector('.js-order-modal-success-text'),
     summary: modal.querySelector('.js-order-modal-summary'),
   };
 }
@@ -69,6 +71,20 @@ function renderStateMessage(message = '', type = 'info') {
   stateText.hidden = false;
   stateText.textContent = message;
   stateText.dataset.state = type;
+}
+
+function renderSuccessMessage(message = '') {
+  const { form, success, successText } = getElements();
+
+  if (!form || !success || !successText) {
+    return;
+  }
+
+  const isVisible = Boolean(message);
+
+  form.hidden = isVisible;
+  success.hidden = !isVisible;
+  successText.textContent = message;
 }
 
 function renderSummary() {
@@ -147,6 +163,7 @@ export function openOrderModal(options = {}) {
   renderSummary();
   renderLoader(false);
   renderStateMessage();
+  renderSuccessMessage();
   setSubmitState(false);
 
   modal.hidden = false;
@@ -176,6 +193,7 @@ export function closeOrderModal(options = {}) {
   form.reset();
   renderLoader(false);
   renderStateMessage();
+  renderSuccessMessage();
   setSubmitState(false);
   unlockScroll();
 
@@ -224,13 +242,24 @@ async function handleOrderSubmit(event) {
   try {
     const order = await createOrder(payload);
     const orderNumber = order?.orderNum ? ` Номер замовлення: ${order.orderNum}.` : '';
+    const successMessage = `Заявку на ${state.modelName || 'меблі'} успішно надіслано.${orderNumber}`;
+    const { success } = getElements();
 
-    iziToast.success({
-      message: `Заявку на ${state.modelName || 'меблі'} успішно надіслано.${orderNumber}`,
-      position: 'bottomRight',
+    renderLoader(false);
+    renderStateMessage();
+    renderSuccessMessage(successMessage);
+    setSubmitState(false);
+
+    requestAnimationFrame(() => {
+      success?.querySelector('[data-close-order-modal]')?.focus();
+      iziToast.success({
+        close: true,
+        title: 'Успішно',
+        message: successMessage,
+        timeout: 8000,
+        position: 'bottomRight',
+      });
     });
-
-    closeOrderModal();
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Не вдалося надіслати заявку.';
 

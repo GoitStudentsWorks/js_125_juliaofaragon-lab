@@ -62,12 +62,14 @@ function renderState(message = '') {
   state.classList.remove('visually-hidden');
 }
 
-function renderPagination(totalItems) {
+function renderPagination(totalItems = 0) {
   const { pagination } = getElements();
 
   if (!pagination) {
     return;
   }
+
+  pagination.hidden = totalItems <= 1;
 
   pagination.innerHTML = Array.from(
     { length: totalItems },
@@ -135,6 +137,7 @@ function initSlider() {
     modules: [Navigation],
     slidesPerView: 1,
     spaceBetween: 16,
+    watchOverflow: true,
     breakpoints: {
       768: {
         slidesPerView: 2,
@@ -151,10 +154,15 @@ function initSlider() {
     },
     on: {
       init(swiper) {
-        syncPagination(swiper.activeIndex);
+        renderPagination(swiper.snapGrid.length);
+        syncPagination(swiper.snapIndex);
+      },
+      breakpoint(swiper) {
+        renderPagination(swiper.snapGrid.length);
+        syncPagination(swiper.snapIndex);
       },
       slideChange(swiper) {
-        syncPagination(swiper.activeIndex);
+        syncPagination(swiper.snapIndex);
       },
     },
   });
@@ -176,7 +184,6 @@ export async function initFeedback() {
 
     list.innerHTML = createFeedbackMarkup(feedbacks);
     initRatings();
-    renderPagination(feedbacks.length);
     initSlider();
     setFooterVisible(feedbacks.length > 0);
   } catch (error) {

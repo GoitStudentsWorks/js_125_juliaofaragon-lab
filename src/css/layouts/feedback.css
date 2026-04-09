@@ -132,6 +132,10 @@
   cursor: not-allowed;
 }
 
+.feedback__button.swiper-button-lock {
+  display: none;
+}
+
 .feedback__button::after {
   display: none;
 }
