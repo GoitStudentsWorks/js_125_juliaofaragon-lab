@@ -70,7 +70,6 @@ function renderPagination(totalItems = 0) {
   }
 
   pagination.hidden = totalItems <= 1;
-
   pagination.innerHTML = Array.from(
     { length: totalItems },
     (_, index) => `
@@ -169,12 +168,13 @@ function initSlider() {
 }
 
 export async function initFeedback() {
-  const { list, section } = getElements();
+  const { list, pagination, section } = getElements();
 
   if (!section || !list) {
     return;
   }
 
+  renderPagination(0);
   setFooterVisible(false);
   showLoader();
   renderState();
@@ -182,10 +182,18 @@ export async function initFeedback() {
   try {
     const feedbacks = await getFeedbacks();
 
+    if (!feedbacks || feedbacks.length === 0) {
+      list.innerHTML = '';
+      renderPagination(0);
+      setFooterVisible(false);
+      renderState('Відгуків поки немає.');
+      return;
+    }
+
     list.innerHTML = createFeedbackMarkup(feedbacks);
     initRatings();
     initSlider();
-    setFooterVisible(feedbacks.length > 0);
+    setFooterVisible(true);
   } catch (error) {
     setFooterVisible(false);
     const message = error instanceof Error ? error.message : 'Не вдалося завантажити відгуки.';
@@ -198,8 +206,6 @@ export async function initFeedback() {
   } finally {
     hideLoader();
   }
-
-  const { pagination } = getElements();
 
   if (pagination && !pagination.dataset.listenerAttached) {
     pagination.addEventListener('click', (event) => {

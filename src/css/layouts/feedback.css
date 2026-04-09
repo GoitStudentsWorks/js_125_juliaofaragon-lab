@@ -50,7 +50,7 @@
 }
 
 .feedback__item {
-  display: grid;
+  display: grid !important;
   gap: 18px;
   height: auto;
   min-height: 100%;
@@ -143,6 +143,7 @@
 .feedback__pagination {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   gap: 6px;
   flex-wrap: wrap;
 }
