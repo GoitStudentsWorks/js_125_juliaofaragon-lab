@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Project Group 2</title>
+    <script type="module" crossorigin src="/js_125_juliaofaragon-lab/index.js"></script>
+    <link rel="modulepreload" crossorigin href="/js_125_juliaofaragon-lab/assets/vendor-DMIztpeO.js">
+    <link rel="modulepreload" crossorigin href="/js_125_juliaofaragon-lab/assets/furniture-modal-wFGZ5y_K.js">
+    <link rel="stylesheet" crossorigin href="/js_125_juliaofaragon-lab/assets/index-BRu23Jvk.css">
+  </head>
+  <body>
+    <header class="header">
+  <div class="header__container">
+    <a class="logo" href="./index.html" aria-label="Логотип Меблерія">
+      <svg class="logo__icon" width="157" height="35">
+        <use href="/js_125_juliaofaragon-lab/assets/sprite-D0sfw85A.svg#icon-logo-footer"></use>
+      </svg>
+    </a>
+
+    <nav class="header__nav" data-mobile-menu>
+      <button
+        class="menu-close-btn"
+        type="button"
+        data-close-mobile-menu
+        aria-label="Закрити меню"
+      >
+        <svg width="32" height="32">
+          <use href="/js_125_juliaofaragon-lab/assets/sprite-D0sfw85A.svg#icon-close-btn"></use>
+        </svg>
+      </button>
+
+      <ul class="nav__list">
+        <li><a class="nav__link" href="#furniture-list" data-link-mobile-menu>Наші меблі</a></li>
+        <li><a class="nav__link" href="#about" data-link-mobile-menu>Про нас</a></li>
+        <li class="nav__item faq">
+          <a class="nav__link" href="#faq" data-link-mobile-menu>Часті питання</a>
+        </li>
+        <li><a class="nav__link" href="#feedback" data-link-mobile-menu>Відгуки</a></li>
+        <li><a class="btn-to-cart" href="#furniture-list" data-link-mobile-menu>До покупок</a></li>
+      </ul>
+    </nav>
+
+    <button class="burger" type="button" data-open-mobile-menu aria-label="Відкрити меню">
+      <svg width="44" height="32">
+        <use href="/js_125_juliaofaragon-lab/assets/sprite-D0sfw85A.svg#icon-burger-btn"></use>
+      </svg>
+    </button>
+  </div>
+</header>
+
+
+    <main>
+      <section class="hero">
+  <div class="hero-container container">
+    <div class="hero-content">
+      <h1 class="hero-title">Створіть свій ідеальний дім</h1>
+
+      <p class="hero-text">
+        Відкрийте для себе колекцію стильних та комфортних меблів, які перетворять ваш простір. Наша
+        продукція поєднує в собі елегантність та функціональність.
+      </p>
+
+      <a href="#feedback" class="hero-btn"> Що про нас думають </a>
+    </div>
+  </div>
+</section>
+
+      <section class="container container-furniture" id="furniture-list">
+  <h2 class="title title-furniture">Наші меблі</h2>
+  <p class="paragraph paragraph-furniture">Знайдіть ідеальні рішення для вашого інтер'єру</p>
+  <ul class="list category-list-furniture"></ul>
+  <ul class="list products-list-furniture"></ul>
+  <span class="products-loader visually-hidden">Завантажуємо меблі...</span>
+  <button class="btn-loadmore-furniture visually-hidden">Показати ще</button>
+</section>
+
+      <section id="about" class="section section-about">
+  <div class="container about-container">
+    <div class="context-about">
+      <h2 class="title-about">Про Меблерію</h2>
+      <p class="text-about">
+        У Меблерії ми прагнемо створювати затишок та функціональність у кожному домі. Наша місія -
+        пропонувати високоякісні меблі, що поєднують у собі сучасний дизайн, довговічність та
+        доступність. Ми віримо, що ідеальний інтер'єр починається з правильних меблів.
+      </p>
+    </div>
+
+    <picture class="pict-about">
+      <source
+        srcset="/js_125_juliaofaragon-lab/assets/img-about-desc1-BI7apJAs.jpg 1x, /js_125_juliaofaragon-lab/assets/img-about-desc2-N1VIqByH.jpg 2x"
+        media="(min-width: 1440px)"
+      />
+      <source
+        srcset="/js_125_juliaofaragon-lab/assets/img-about-tablet1-CZ0GsMoU.jpg 1x, /js_125_juliaofaragon-lab/assets/img-about-tablet2-B5uad6VX.jpg 2x"
+        media="(min-width: 768px)"
+      />
+      <source
+        srcset="/js_125_juliaofaragon-lab/assets/img-about-mobile1-D4dmHAwt.jpg 1x, /js_125_juliaofaragon-lab/assets/img-about-mobile2-BJiI39_3.jpg 2x"
+        media="(max-width: 767px)"
+      />
+      <img
+        class="img-about"
+        src="/js_125_juliaofaragon-lab/assets/img-about-mobile1-D4dmHAwt.jpg"
+        alt="Команда Меблерії обговорює дизайн меблів"
+        loading="lazy"
+        width="436"
+        height="644"
+      />
+    </picture>
+  </div>
+</section>
+
+      <section class="faq" id="faq">
+  <div class="container">
+    <h2 class="faq__title">Часті питання</h2>
+    <ul class="faq__list accordion-container">
+      <li class="faq__item ac">
+        <h3 class="faq-wraper ac-header">
+          <button type="button" class="faq__btn ac-trigger">
+            <span class="faq__btn-text">Як здійснюється доставка меблів?</span>
+            <svg class="faq__icon">
+              <use href="/js_125_juliaofaragon-lab/assets/sprite-D0sfw85A.svg#faqicon__"></use>
+            </svg>
+          </button>
+        </h3>
+        <div class="faq__answer ac-panel">
+          <p class="answer-text">
+            Ми доставляємо замовлення по всій Україні через надійні служби. Термін доставки зазвичай
+            складає 3–7 днів залежно від регіону.
+          </p>
+        </div>
+      </li>
+      <li class="faq__item ac">
+        <h3 class="faq-wraper ac-header">
+          <button type="button" class="faq__btn ac-trigger">
+            <span class="faq__btn-text">Чи є можливість вибрати колір або матеріал?</span
+            ><svg class="faq__icon">
+              <use href="/js_125_juliaofaragon-lab/assets/sprite-D0sfw85A.svg#faqicon__"></use>
+            </svg>
+          </button>
+        </h3>
+        <div class="faq__answer ac-panel">
+          <p class="answer-text">
+            Так, у багатьох моделях доступні варіанти оббивки та кольорів. Усі доступні опції
+            вказані на сторінці товару.
+          </p>
+        </div>
+      </li>
+      <li class="faq__item ac">
+        <h3 class="faq-wraper ac-header">
+          <button type="button" class="faq__btn ac-trigger">
+            <span class="faq__btn-text">Чи можна повернути товар, якщо він не підійшов?</span
+            ><svg class="faq__icon">
+              <use href="/js_125_juliaofaragon-lab/assets/sprite-D0sfw85A.svg#faqicon__"></use>
+            </svg>
+          </button>
+        </h3>
+        <div class="faq__answer ac-panel">
+          <p class="answer-text">
+            Так, ви можете повернути товар протягом 14 днів, якщо він не був у користуванні та
+            збережений у первинному вигляді.
+          </p>
+        </div>
+      </li>
+      <li class="faq__item ac">
+        <h3 class="faq-wraper ac-header">
+          <button type="button" class="faq__btn ac-trigger">
+            <span class="faq__btn-text">Чи надаєте ви послугу збирання меблів?</span
+            ><svg class="faq__icon">
+              <use href="/js_125_juliaofaragon-lab/assets/sprite-D0sfw85A.svg#faqicon__"></use>
+            </svg>
+          </button>
+        </h3>
+        <div class="faq__answer ac-panel">
+          <p class="answer-text">
+            Так, під час оформлення замовлення можна обрати послугу збирання. Наші майстри зберуть
+            меблі у зручний для вас час.
+          </p>
+        </div>
+      </li>
+      <li class="faq__item ac">
+        <h3 class="faq-wraper ac-header">
+          <button type="button" class="faq__btn ac-trigger">
+            <span class="faq__btn-text">Як здійснити оплату?</span
+            ><svg class="faq__icon">
+              <use href="/js_125_juliaofaragon-lab/assets/sprite-D0sfw85A.svg#faqicon__"></use>
+            </svg>
+          </button>
+        </h3>
+        <div class="faq__answer ac-panel">
+          <p class="answer-text">
+            Ми приймаємо оплату карткою онлайн, банківським переказом або післяплатою при отриманні.
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+      <section class="feedback section" id="feedback">
+  <div class="container feedback__container">
+    <div class="feedback__head">
+      <h2 class="feedback__title">Відгуки клієнтів</h2>
+      <p class="feedback__subtitle">
+        Дізнайтеся, що кажуть наші задоволені клієнти про наші меблі
+      </p>
+    </div>
+
+    <p class="feedback__loader visually-hidden js-feedback-loader">Завантажуємо відгуки...</p>
+    <p class="feedback__state visually-hidden js-feedback-state"></p>
+
+    <div class="feedback__slider swiper js-feedback-swiper">
+      <ul class="feedback__list swiper-wrapper js-feedback-list"></ul>
+    </div>
+
+    <div class="feedback__footer">
+      <ul class="feedback__pagination js-feedback-pagination" aria-label="Пагінація відгуків"></ul>
+
+      <div class="feedback__controls">
+        <button
+          class="feedback__button feedback__button--prev js-feedback-prev"
+          type="button"
+          aria-label="Попередній відгук"
+        >
+          <img src="data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12.707%2017.293L8.414%2013H18V11H8.414L12.707%206.70697L11.293%205.29297L4.586%2012L11.293%2018.707L12.707%2017.293Z'%20fill='%23080C09'/%3e%3c/svg%3e" alt="" width="16" height="16" />
+        </button>
+        <button
+          class="feedback__button feedback__button--next js-feedback-next"
+          type="button"
+          aria-label="Наступний відгук"
+        >
+          <img src="data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M11.293%2017.293L12.707%2018.707L19.414%2012L12.707%205.29297L11.293%206.70697L15.586%2011H6V13H15.586L11.293%2017.293Z'%20fill='%23080C09'/%3e%3c/svg%3e" alt="" width="16" height="16" />
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+    </main>
+
+    <div class="backdrop modal-backdrop js-furniture-modal" hidden>
+  <div
+    class="modal furniture-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="furniture-modal-title"
+  >
+    <button
+      class="modal__close furniture-modal__close"
+      type="button"
+      data-close-furniture-modal
+      aria-label="Закрити модальне вікно"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <div class="furniture-modal__layout">
+      <div class="furniture-modal__gallery">
+        <div class="furniture-modal__main-image-wrap">
+          <img
+            class="furniture-modal__main-image js-furniture-modal-main-image"
+            src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20800%20520'%20role='img'%20aria-label='Furniture%20placeholder'%3e%3crect%20width='800'%20height='520'%20fill='%23f4efe8'%20/%3e%3crect%20x='96'%20y='110'%20width='608'%20height='300'%20rx='28'%20fill='%23e6ddd2'%20/%3e%3crect%20x='168'%20y='224'%20width='464'%20height='112'%20rx='18'%20fill='%23d7cab9'%20/%3e%3crect%20x='144'%20y='188'%20width='72'%20height='148'%20rx='28'%20fill='%23d7cab9'%20/%3e%3crect%20x='584'%20y='188'%20width='72'%20height='148'%20rx='28'%20fill='%23d7cab9'%20/%3e%3crect%20x='140'%20y='332'%20width='16'%20height='76'%20rx='8'%20fill='%236b5f57'%20/%3e%3crect%20x='644'%20y='332'%20width='16'%20height='76'%20rx='8'%20fill='%236b5f57'%20/%3e%3crect%20x='254'%20y='210'%20width='92'%20height='62'%20rx='16'%20fill='%23efe7dc'%20/%3e%3crect%20x='454'%20y='210'%20width='92'%20height='62'%20rx='16'%20fill='%23efe7dc'%20/%3e%3cpath%20d='M0%20462h800v58H0z'%20fill='%23ddd3c8'%20/%3e%3c/svg%3e"
+            alt="Фото товару"
+          />
+        </div>
+
+        <ul class="furniture-modal__thumbs js-furniture-modal-thumbs"></ul>
+      </div>
+
+      <div class="furniture-modal__content">
+        <div class="furniture-modal__heading">
+          <h2 class="furniture-modal__title" id="furniture-modal-title">Товар</h2>
+          <p class="furniture-modal__category js-furniture-modal-category">Категорія</p>
+        </div>
+
+        <div class="furniture-modal__summary">
+          <p class="furniture-modal__price js-furniture-modal-price">Ціна уточнюється</p>
+
+          <div class="furniture-modal__rating" role="img" aria-label="Рейтинг товару">
+            <div class="furniture-modal__stars js-furniture-modal-stars"></div>
+            <p class="furniture-modal__rating-value js-furniture-modal-rating-value" hidden></p>
+          </div>
+        </div>
+
+        <div class="furniture-modal__option">
+          <p class="furniture-modal__label">Колір</p>
+          <ul
+            class="furniture-modal__colors js-furniture-modal-colors"
+            aria-label="Доступні кольори"
+          ></ul>
+        </div>
+
+        <div class="furniture-modal__details">
+          <p class="furniture-modal__description js-furniture-modal-description">
+            Опис товару з'явиться після завантаження даних.
+          </p>
+
+          <p class="furniture-modal__sizes js-furniture-modal-sizes">Розміри уточнюються</p>
+        </div>
+
+        <div class="modal-loader furniture-modal__loader js-furniture-modal-loader" aria-live="polite" hidden>
+          <span class="modal-loader__spinner" aria-hidden="true"></span>
+          <span class="js-furniture-modal-loader-text">Завантажуємо інформацію про товар...</span>
+        </div>
+
+        <p class="furniture-modal__state js-furniture-modal-state" hidden></p>
+
+        <button
+          class="button furniture-modal__action js-furniture-modal-order-button"
+          type="button"
+          disabled
+        >
+          Перейти до замовлення
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="backdrop modal-backdrop js-order-modal" hidden>
+  <div class="modal order-modal" role="dialog" aria-modal="true" aria-labelledby="order-modal-title">
+    <button
+      class="modal__close order-modal__close"
+      type="button"
+      data-close-order-modal
+      aria-label="Закрити модальне вікно"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <div class="order-modal__content">
+      <div class="order-modal__heading">
+        <h2 class="order-modal__title" id="order-modal-title">Замовити зворотний зв’язок</h2>
+        <p class="order-modal__summary js-order-modal-summary" hidden></p>
+      </div>
+
+      <form class="order-form js-order-form">
+        <label class="order-modal__field">
+          <span class="order-modal__label">Ім'я*</span>
+          <input
+            class="order-modal__input"
+            type="text"
+            name="name"
+            autocomplete="name"
+            minlength="2"
+            maxlength="64"
+            placeholder="Дмитро"
+            required
+          />
+        </label>
+
+        <label class="order-modal__field">
+          <span class="order-modal__label">Телефон*</span>
+          <input
+            class="order-modal__input"
+            type="tel"
+            name="phone"
+            autocomplete="tel"
+            inputmode="numeric"
+            pattern="[0-9]{12}"
+            minlength="12"
+            maxlength="12"
+            placeholder="38 099 123 22 11"
+            title="Введіть 12 цифр без пробілів і символу +"
+            required
+          />
+        </label>
+
+        <label class="order-modal__field">
+          <span class="order-modal__label">Коментар</span>
+          <textarea
+            class="order-modal__textarea"
+            name="comment"
+            minlength="5"
+            maxlength="256"
+            placeholder="Введіть ваш коментар"
+          ></textarea>
+        </label>
+
+        <div class="modal-loader order-modal__loader js-order-modal-loader" aria-live="polite" hidden>
+          <span class="modal-loader__spinner" aria-hidden="true"></span>
+          <span class="js-order-modal-loader-text">Надсилаємо заявку...</span>
+        </div>
+
+        <p class="order-modal__state js-order-modal-state" hidden></p>
+
+        <button class="button order-modal__submit" type="submit">Надіслати заявку</button>
+      </form>
+
+      <div class="order-modal__success js-order-modal-success" hidden>
+        <p class="order-modal__success-title">Дякуємо за звернення!</p>
+        <p class="order-modal__success-text js-order-modal-success-text"></p>
+        <button class="button order-modal__success-button" type="button" data-close-order-modal>
+          Закрити
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <footer class="footer">
+  <div class="footer-container">
+    <a class="logo footer-logo" href="./index.html" aria-label="Логотип проєкту">
+      <svg class="footer-logo-svg" width="228" height="97" aria-label="Логотип проєкту">
+        <use class="footer-logo-svg" href="/js_125_juliaofaragon-lab/assets/sprite-D0sfw85A.svg#icon-logo-footer"></use>
+      </svg>
+    </a>
+
+    <nav class="footer-nav" aria-label="Навігація у футері">
+      <ul class="footer-nav-list">
+        <li><a class="footer-nav-link" href="#furniture-list">Наші меблі</a></li>
+        <li><a class="footer-nav-link" href="#about">Про нас</a></li>
+        <li><a class="footer-nav-link" href="#faq">Часті питання</a></li>
+        <li><a class="footer-nav-link" href="#feedback">Відгуки</a></li>
+      </ul>
+    </nav>
+
+    <ul class="socials">
+      <li>
+        <a
+          class="socials-link"
+          href="https://www.youtube.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="YouTube"
+        >
+          <svg class="social-icon" width="24" height="24">
+            <use href="/js_125_juliaofaragon-lab/assets/sprite-D0sfw85A.svg#icon-youtube"></use>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a
+          class="socials-link"
+          href="https://www.instagram.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+        >
+          <svg class="social-icon" width="24" height="24">
+            <use href="/js_125_juliaofaragon-lab/assets/sprite-D0sfw85A.svg#icon-instagram"></use>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a
+          class="socials-link"
+          href="https://www.facebook.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Facebook"
+        >
+          <svg class="social-icon" width="24" height="24">
+            <use href="/js_125_juliaofaragon-lab/assets/sprite-D0sfw85A.svg#icon-facebook"></use>
+          </svg>
+        </a>
+      </li>
+    </ul>
+
+    <p class="footer-copy">&copy; 2026 Меблерія. Всі права захищені.</p>
+  </div>
+</footer>
+
+
+  </body>
+</html>

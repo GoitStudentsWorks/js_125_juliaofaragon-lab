@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <title>Furniture Modal Preview</title>
+    <script type="module" crossorigin src="/js_125_juliaofaragon-lab/furniture-modal-preview.js"></script>
+    <link rel="modulepreload" crossorigin href="/js_125_juliaofaragon-lab/assets/vendor-DMIztpeO.js">
+    <link rel="modulepreload" crossorigin href="/js_125_juliaofaragon-lab/assets/furniture-modal-wFGZ5y_K.js">
+    <link rel="stylesheet" crossorigin href="/js_125_juliaofaragon-lab/assets/furniture-modal-preview-BWLBkp20.css">
+  </head>
+  <body>
+    <div class="backdrop modal-backdrop js-furniture-modal" hidden>
+  <div
+    class="modal furniture-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="furniture-modal-title"
+  >
+    <button
+      class="modal__close furniture-modal__close"
+      type="button"
+      data-close-furniture-modal
+      aria-label="Закрити модальне вікно"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <div class="furniture-modal__layout">
+      <div class="furniture-modal__gallery">
+        <div class="furniture-modal__main-image-wrap">
+          <img
+            class="furniture-modal__main-image js-furniture-modal-main-image"
+            src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20800%20520'%20role='img'%20aria-label='Furniture%20placeholder'%3e%3crect%20width='800'%20height='520'%20fill='%23f4efe8'%20/%3e%3crect%20x='96'%20y='110'%20width='608'%20height='300'%20rx='28'%20fill='%23e6ddd2'%20/%3e%3crect%20x='168'%20y='224'%20width='464'%20height='112'%20rx='18'%20fill='%23d7cab9'%20/%3e%3crect%20x='144'%20y='188'%20width='72'%20height='148'%20rx='28'%20fill='%23d7cab9'%20/%3e%3crect%20x='584'%20y='188'%20width='72'%20height='148'%20rx='28'%20fill='%23d7cab9'%20/%3e%3crect%20x='140'%20y='332'%20width='16'%20height='76'%20rx='8'%20fill='%236b5f57'%20/%3e%3crect%20x='644'%20y='332'%20width='16'%20height='76'%20rx='8'%20fill='%236b5f57'%20/%3e%3crect%20x='254'%20y='210'%20width='92'%20height='62'%20rx='16'%20fill='%23efe7dc'%20/%3e%3crect%20x='454'%20y='210'%20width='92'%20height='62'%20rx='16'%20fill='%23efe7dc'%20/%3e%3cpath%20d='M0%20462h800v58H0z'%20fill='%23ddd3c8'%20/%3e%3c/svg%3e"
+            alt="Фото товару"
+          />
+        </div>
+
+        <ul class="furniture-modal__thumbs js-furniture-modal-thumbs"></ul>
+      </div>
+
+      <div class="furniture-modal__content">
+        <div class="furniture-modal__heading">
+          <h2 class="furniture-modal__title" id="furniture-modal-title">Товар</h2>
+          <p class="furniture-modal__category js-furniture-modal-category">Категорія</p>
+        </div>
+
+        <div class="furniture-modal__summary">
+          <p class="furniture-modal__price js-furniture-modal-price">Ціна уточнюється</p>
+
+          <div class="furniture-modal__rating" role="img" aria-label="Рейтинг товару">
+            <div class="furniture-modal__stars js-furniture-modal-stars"></div>
+            <p class="furniture-modal__rating-value js-furniture-modal-rating-value" hidden></p>
+          </div>
+        </div>
+
+        <div class="furniture-modal__option">
+          <p class="furniture-modal__label">Колір</p>
+          <ul
+            class="furniture-modal__colors js-furniture-modal-colors"
+            aria-label="Доступні кольори"
+          ></ul>
+        </div>
+
+        <div class="furniture-modal__details">
+          <p class="furniture-modal__description js-furniture-modal-description">
+            Опис товару з'явиться після завантаження даних.
+          </p>
+
+          <p class="furniture-modal__sizes js-furniture-modal-sizes">Розміри уточнюються</p>
+        </div>
+
+        <div class="modal-loader furniture-modal__loader js-furniture-modal-loader" aria-live="polite" hidden>
+          <span class="modal-loader__spinner" aria-hidden="true"></span>
+          <span class="js-furniture-modal-loader-text">Завантажуємо інформацію про товар...</span>
+        </div>
+
+        <p class="furniture-modal__state js-furniture-modal-state" hidden></p>
+
+        <button
+          class="button furniture-modal__action js-furniture-modal-order-button"
+          type="button"
+          disabled
+        >
+          Перейти до замовлення
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  </body>
+</html>
